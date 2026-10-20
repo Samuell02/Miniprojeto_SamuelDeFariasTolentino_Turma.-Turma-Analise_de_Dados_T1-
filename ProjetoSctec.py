@@ -2,4 +2,7 @@ import pandas as pd
 
 df = pd.read_csv('Base Varejo.csv')
 
-print(df.to_string()) 
+pd.set_option('display.max_rows', 5)
+
+
+print(df)
