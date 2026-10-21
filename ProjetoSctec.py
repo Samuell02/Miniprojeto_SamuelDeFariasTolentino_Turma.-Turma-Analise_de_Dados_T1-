@@ -1,9 +1,15 @@
 import pandas as pd
 
 df = pd.read_csv('Base Varejo.csv',sep=';')
-print(df.head())
+# print(df.head())
+def showrows():
+    pd.set_option('display.max_rows', 5)
+    print(df.to_string())
 
-pd.set_option('display.max_rows', 5)
+def showtypes():
+    print(df.dtypes)
 
+def shownumberofrows():
+    print(len(df))
 
-print(df.to_string())
+shownumberofrows()
