@@ -1,6 +1,7 @@
 import pandas as pd
 
 df = pd.read_csv('Base Varejo.csv',sep=';')
+pd.set_option('display.max_columns', None)
 print(df.head())
 def showrows():
     pd.set_option('display.max_rows', 5)
@@ -15,6 +16,14 @@ def shownumberofrows():
 def turndatetodatetime():
     df['DATA'] = pd.to_datetime(df['DATA'],dayfirst=True)
 
+def removeemptyrows():
+    df.dropna(axis=1, how='all', inplace=True)
+
+
 turndatetodatetime()
+showtypes()
+removeemptyrows()
+
+
 showtypes()
 
