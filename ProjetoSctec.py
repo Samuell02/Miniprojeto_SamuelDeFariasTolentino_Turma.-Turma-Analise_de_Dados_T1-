@@ -53,7 +53,8 @@ def agrupargenero():
 def turndatetodatetime():
     df['DATA'] = pd.to_datetime(df['DATA'],dayfirst=True)
 
-def removeemptyrows():
+def removeemptycolumns():
+    df.replace('', pd.NA, inplace=True)
     df.dropna(axis=1, how='all', inplace=True)
 
 
