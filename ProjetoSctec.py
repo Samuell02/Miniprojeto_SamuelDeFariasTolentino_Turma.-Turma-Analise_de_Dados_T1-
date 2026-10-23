@@ -60,8 +60,7 @@ def removeemptycolumns():
 
 turndatetodatetime()
 showtypes()
-removeemptyrows()
-
+removeemptycolumns()
 
 showtypes()
 
