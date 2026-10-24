@@ -24,13 +24,26 @@ def showtypes():
 def shownumberofrows():
     print(len(df))
 
-def agrupargenero():
-    print("\n--- Agrupamento 1: Total de Compras por Gênero ---")
-    vendas_por_genero = df.groupby("CL_GENERO").size().reset_index(name="Total_Compras")
-    vendas_por_genero = vendas_por_genero.sort_values(
-        by="Total_Compras", ascending=False
-    )
-    print(vendas_por_genero.to_string(index=False))
+#isso eliminina espaços extras,bota tudo em maiusculo,
+def cleantext(txt):
+    return re.sub(r"\s+", " ", str(txt)).strip().upper()
+#converte todos os digitos pra int e se nao for digito converte pra none.
+def cleaninteger(txt):
+    d = re.sub(r"\D", "", str(txt))
+    return int(d) if d else None
+#Deveria remover o "R$" dos preços, converter pra float,e formatar corretamente,porem a base de dados não tem preço entao isso nao ve uso.
+def cleandecimal(txt):
+    cleaneddec = re.sub(r"[^\d,.\-]", "", str(txt))
+    if "," in cleaneddec:
+        cleaneddec = cleaneddec.replace(".", "").replace(",", ".")
+    try:
+        return float(cleaneddec)
+    except ValueError:
+        return None
+#aplica as funções de limpeza nos valores unicos ao inves de todos os valores.
+def applyunique(scolumn, operation):
+    maps = {v: operation(v) for v in scolumn.unique()}
+    return scolumn.map(maps)
 
 def turndatetodatetime():
     df['DATA'] = pd.to_datetime(df['DATA'],dayfirst=True)
