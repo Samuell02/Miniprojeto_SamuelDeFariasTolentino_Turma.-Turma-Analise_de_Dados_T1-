@@ -143,8 +143,12 @@ def groupgender():
     r = r.sort_values("itens", ascending=False)
     print(r)
 
-turndatetodatetime()
-showtypes()
+#1) visao da base antes da limpeza
+showrows()
+shownumberofrows()
+print(searchnull())
+countnull()
+#2 Remove colunas vazias e guarda contadores do relatório
 removeemptycolumns()
 
 showtypes()
