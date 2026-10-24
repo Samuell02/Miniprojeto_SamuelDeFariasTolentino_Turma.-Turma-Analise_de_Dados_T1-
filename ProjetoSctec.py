@@ -53,8 +53,40 @@ def convertdata(txt):
         return pd.NaT
 #Converte todas as datas para datetime usando a função convertdata
 def turndatetodatetime():
-    df['DATA'] = pd.to_datetime(df['DATA'],dayfirst=True)
-
+        mapa = {d: convertdata(d) for d in df["DATA"].unique()}
+        df["DATA"] = pd.to_datetime(df["DATA"].map(mapa))
+        print("Datas inválidas:", df["DATA"].isna().sum())
+#Conta quantos nulls tem a partir do #N/D, que nos ja sabemos que é o null porque procuramos com o searchnull
+def countnull():
+    cont = (df == "#N/D").sum()
+    print(cont[cont > 0].to_dict())
+#Analisa toda a base de dados com o nulldisguise de refencia para identificar o null escondido.
+def searchnull():
+    found = {}
+    for col in df.columns:
+        cont = df[col].value_counts(dropna=False)
+        textos = cont.index.astype(str).str.strip().str.upper()
+        mask = textos.isin(nulldisguise) | cont.index.isna()
+        if col in numcolumns:
+            mask = mask | ~textos.str.fullmatch(r"\d+")
+        nd = cont[mask]
+        if len(nd) > 0:
+            found[col] = {str(k): int(v) for k, v in nd.items()}
+    print(found)
+    return found
+#Troca os nulls do PR_CAT por "SEM CATEGORIA"
+def replacecatnull(cat):
+    if cat == "#N/D" or cat == "":
+        return "SEM CATEGORIA"
+    else:
+        return cat
+#Troca os nulls do PR_NOME por "SEM NOME"
+def replacenamenull(nome):
+    if nome == "#N/D" or nome == "":
+        return "SEM NOME"
+    else:
+        return nome
+#troca as colunas vazias por NA e se livra delas depois
 def removeemptycolumns():
     df.replace('', pd.NA, inplace=True)
     df.dropna(axis=1, how='all', inplace=True)
