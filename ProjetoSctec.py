@@ -14,10 +14,7 @@ with open(filetoload, newline='', encoding='utf-8') as f:
     data = csv.DictReader(f, delimiter=";")
     df = pd.DataFrame(data)
 
-
-def removeduplicates():
-    df.drop_duplicates(inplace=True)
-
+#isso mostra os primeiro 5 rows
 def showrows():
     pd.set_option('display.max_rows', 5)
     print(df.to_string())
