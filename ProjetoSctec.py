@@ -155,6 +155,13 @@ n_dup = int(df.duplicated().sum())          # 96553
 n_nulls = int((df["PR_CAT"] == "#N/D").sum())  # 3650
 showtypes()
 
+# 3 limpeza e tratamento de tipos
+for col in ["CL_GENERO", "CL_SEG", "PR_CAT", "PR_NOME"]:
+    df[col] = applyunique(df[col], cleantext)
+for col in ["CO_ID", "CL_ID", "CL_EC", "CL_FHL", "PR_ID"]:
+    df[col] = applyunique(df[col], cleaninteger).astype("Int64")
+print("Teste de Limpeza de Decimais", cleandecimal("R$ 3,40"))
+turndatetodatetime()
 showtypes()
 
 shownumberofrows()
