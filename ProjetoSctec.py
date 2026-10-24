@@ -164,6 +164,21 @@ print("Teste de Limpeza de Decimais", cleandecimal("R$ 3,40"))
 turndatetodatetime()
 showtypes()
 
+#4 substituindo nulos
+countnull()
+df["PR_CAT"] = applyunique(df["PR_CAT"], replacecatnull)
+df["PR_NOME"] = applyunique(df["PR_NOME"], replacenamenull)
+print(searchnull())                         # {} = nada suspeito sobrou
+
+#5 Regra do CO_ID
+validatepurchases()
+
+#6 transformando duplicatas em QUANTIDADE
+itemquantity()
+df = df.sort_values(["DATA", "CO_ID"]).reset_index(drop=True)
+print("Soma de QUANTIDADE:", df["QUANTIDADE"].sum())
+shopclients = df.drop_duplicates("CL_ID")
+print("Clientes:", len(shopclients))
 shownumberofrows()
 
 showstatistics()
