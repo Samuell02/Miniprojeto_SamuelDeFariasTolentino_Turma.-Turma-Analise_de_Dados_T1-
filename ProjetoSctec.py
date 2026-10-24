@@ -9,6 +9,10 @@ cleanfile = "VarejoLimpo.csv"
 nulldisguise= {"#N/D", "#N/A", "N/A", "NA", "NULL", "NONE", "NAN", "-", "--", "?", "","UNDEFINED","UNNAMED"}
 numcolumns = ["CO_ID", "CL_ID", "CL_EC", "CL_FHL", "PR_ID"]
 
+#Isso abre a base de dados como um dataframe usando o dictreader.
+with open(filetoload, newline='', encoding='utf-8') as f:
+    data = csv.DictReader(f, delimiter=";")
+    df = pd.DataFrame(data)
 
 
 def removeduplicates():
