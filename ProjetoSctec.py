@@ -181,6 +181,12 @@ shopclients = df.drop_duplicates("CL_ID")
 print("Clientes:", len(shopclients))
 shownumberofrows()
 
-showstatistics()
+#7 mostrando estatísticas
+showstatistics(shopclients["CL_FHL"])
+describestatistics(shopclients["CL_FHL"])
+
+#8fazendo agrupamentos
+groupgender()
+groupcat()
 
 Describestatistics()
