@@ -180,7 +180,6 @@ print("Soma de QUANTIDADE:", df["QUANTIDADE"].sum())
 shopclients = df.drop_duplicates("CL_ID")
 print("Clientes:", len(shopclients))
 shownumberofrows()
-
 #7 mostrando estatísticas
 showstatistics(shopclients["CL_FHL"])
 describestatistics(shopclients["CL_FHL"])
