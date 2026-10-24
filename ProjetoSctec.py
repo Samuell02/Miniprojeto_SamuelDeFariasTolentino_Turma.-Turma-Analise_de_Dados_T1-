@@ -104,6 +104,44 @@ def validatepurchases():
     df.dropna(subset=["CO_ID"], inplace=True)
     df["CO_ID"] = df["CO_ID"].astype(str).str.strip()
 
+    itemsperpurchase = df.groupby("CO_ID").size()
+    print(f"Total de compras válidas : {len(itemsperpurchase)}")
+    groupedpurchases = df.groupby("CO_ID").agg(n_clientes=("CL_ID", "nunique"),
+                                n_datas=("DATA", "nunique"))
+    print("CO_ID inconsistentes:", ((groupedpurchases ["n_clientes"] > 1) | (groupedpurchases ["n_datas"] > 1)).sum())
+#Mostra todas as estatisticas de um column,uma por uma
+def showstatistics(scolumn):
+    print("Contagem:", scolumn.count())
+    print("Média:", round(scolumn.mean(), 2))
+    print("Mediana:", scolumn.median())
+    print("Desvio Padrão:", round(scolumn.std(), 2))
+    print("Moda:", scolumn.mode().tolist())
+    print("Máximo:", scolumn.max())
+    print("Mínimo:", scolumn.min())
+    print("Quartis:")
+    print(scolumn.quantile([0.25, 0.50, 0.75]))
+#Mostra todas as estatisticas de um column,todas de uma vez
+def describestatistics(scolumn):
+    print("Estatisticas completas")
+    print(scolumn.describe())
+#mostra a porcentagem das vendas por categoria
+def groupcat():
+    print("Vendas por Categoria")
+    r = (df.groupby("PR_CAT")["QUANTIDADE"].sum()
+           .sort_values(ascending=False).to_frame("itens"))
+    r["%"] = (r["itens"] / r["itens"].sum() * 100).round(1)
+    print(r)
+#Mostra os diferentes dados das vendas entre homens e mulheres.
+def groupgender():
+    print("Vendas por Genero")
+    r = df.groupby("CL_GENERO").agg(
+        itens=("QUANTIDADE", "sum"),
+        compras=("CO_ID", "nunique"),
+        clientes=("CL_ID", "nunique"),
+    )  # clientes distintos
+    r["itens_por_compra"] = (r["itens"] / r["compras"]).round(2)
+    r = r.sort_values("itens", ascending=False)
+    print(r)
 
 turndatetodatetime()
 showtypes()
