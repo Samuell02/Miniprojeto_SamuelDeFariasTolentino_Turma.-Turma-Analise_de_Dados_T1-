@@ -189,4 +189,14 @@ describestatistics(shopclients["CL_FHL"])
 groupgender()
 groupcat()
 
-Describestatistics()
+#9 ultimo relatorio   e exportação
+print("\nRelatório Final:")
+print(f"Registros originais: {n_start:,}")
+print(f"Registros depois da  limpeza: {len(df):,}")
+print(f"Duplicatas colapsadas: {n_dup:,}")
+print(f"'#N/D' tratados em PR_CAT: {n_nulls :,}")
+print(f"Compras unicas : {df['CO_ID'].nunique():,}")
+print(f"Clientes unicos : {df['CL_ID'].nunique():,}")
+print(f"Período : {df['DATA'].min():%d/%m/%Y} a {df['DATA'].max():%d/%m/%Y}")
+
+df.to_csv(cleanfile, index=False, sep=";", encoding="utf-8")
