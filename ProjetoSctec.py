@@ -90,6 +90,19 @@ def replacenamenull(nome):
 def removeemptycolumns():
     df.replace('', pd.NA, inplace=True)
     df.dropna(axis=1, how='all', inplace=True)
+#Coloca todos as linhas que aparecem multiplas vezes um uma só,ai o mesmo CO_ID que comprou um item multiplas vezes so aparece uma vez ao inves de ter rows duplicados
+def itemquantity():
+    global df
+    columns = list(df.columns)
+    df = (
+        df.groupby(columns, as_index=False, dropna=False)
+        .size()
+        .rename(columns={"size": "QUANTIDADE"})
+    )
+#verifica a compra pra ter certeza de que cada uma pertença a apenas um cliente e uma data.
+def validatepurchases():
+    df.dropna(subset=["CO_ID"], inplace=True)
+    df["CO_ID"] = df["CO_ID"].astype(str).str.strip()
 
 
 turndatetodatetime()
