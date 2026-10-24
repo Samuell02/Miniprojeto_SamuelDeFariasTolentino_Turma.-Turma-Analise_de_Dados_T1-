@@ -5,7 +5,7 @@ from datetime import datetime
 
 #Essas são as variaveis mais importantes do projeto:filetoload determina que arquivo o programa abre,cleanfile decide qual arquivo é salvo,nulldisguise ajuda a identificar nulls disfarçados, e numcolumns ajuda a limpar colunas com numeros
 filetoload ="Base_Varejo.csv"
-cleanfile = "VarejoLimpo.csv"
+cleanfile = "df_limpo.csv"
 nulldisguise= {"#N/D", "#N/A", "N/A", "NA", "NULL", "NONE", "NAN", "-", "--", "?", "","UNDEFINED","UNNAMED"}
 numcolumns = ["CO_ID", "CL_ID", "CL_EC", "CL_FHL", "PR_ID"]
 
