@@ -45,6 +45,13 @@ def applyunique(scolumn, operation):
     maps = {v: operation(v) for v in scolumn.unique()}
     return scolumn.map(maps)
 
+#converte uma data para datetime ou retorna NaT se não for uma data valida
+def convertdata(txt):
+    try:
+        return datetime.strptime(txt.strip(), "%d/%m/%Y")
+    except ValueError:
+        return pd.NaT
+#Converte todas as datas para datetime usando a função convertdata
 def turndatetodatetime():
     df['DATA'] = pd.to_datetime(df['DATA'],dayfirst=True)
 
