@@ -150,6 +150,10 @@ print(searchnull())
 countnull()
 #2 Remove colunas vazias e guarda contadores do relatório
 removeemptycolumns()
+n_start = len(df)                         # 830000
+n_dup = int(df.duplicated().sum())          # 96553
+n_nulls = int((df["PR_CAT"] == "#N/D").sum())  # 3650
+showtypes()
 
 showtypes()
 
