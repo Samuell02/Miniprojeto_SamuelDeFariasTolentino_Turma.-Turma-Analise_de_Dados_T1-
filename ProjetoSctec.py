@@ -20,7 +20,7 @@ def showrows():
 #Isso mostra os types da base
 def showtypes():
     print(df.dtypes)
-
+#isso mostra quantos rows a base tem
 def shownumberofrows():
     print(len(df))
 
